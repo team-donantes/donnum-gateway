@@ -1,6 +1,6 @@
 # Donnum.Microservice.Seed - Way of Work (WoW)
 
-¡Bienvenidos al **Team Sangre**! 
+¡Bienvenidos al **Team Donnum**! 
 Este repositorio es la plantilla (scaffolding) oficial para la construcción de los microservicios de **Donnum**, nuestra plataforma de donación de sangre en tiempo real. 
 
 El propósito de este template es garantizar que los 5 microservicios base (Autenticación, Donantes, Urgencias, Alertas y Estadísticas) compartan la misma estructura, buenas prácticas y estándares técnicos. Así aseguramos un ecosistema unificado, escalable y mantenible por nuestros 9 desarrolladores.

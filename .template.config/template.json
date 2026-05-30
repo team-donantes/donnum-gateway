@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/template",
-  "author": "Team Sangre",
+  "author": "Team Donnum",
   "classifications": ["Web", "WebAPI", "Clean Architecture", "Microservice"],
   "name": "Donnum.Microservice.Seed",
   "identity": "Donnum.Microservice.Template",
