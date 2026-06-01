@@ -64,5 +64,3 @@ Ve al directorio donde quieras crear tu nuevo proyecto y ejecuta el siguiente co
 ```bash
 dotnet new donnum-ms -n Donnum.MicroserviceName
 ```
-
-¡Listo! Ya tienes una base sólida y estandarizada en .NET 10. A programar y salvar vidas con Donnum.
