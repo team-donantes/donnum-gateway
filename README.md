@@ -1,4 +1,4 @@
-# Donnum.Microservice.Seed - Way of Work (WoW)
+# Donnum.Gateway.Seed - Way of Work (WoW)
 
 ¡Bienvenidos al **Team Donnum**! 
 Este repositorio es la plantilla (scaffolding) oficial para la construcción de los microservicios de **Donnum**, nuestra plataforma de donación de sangre en tiempo real. 
@@ -60,7 +60,7 @@ dotnet new install .
 ```
 
 ### 2. Generar un nuevo microservicio
-Ve al directorio donde quieras crear tu nuevo proyecto y ejecuta el siguiente comando, reemplazando `Donnum.MicroserviceName` por el nombre real (ej. `Donnum.Autenticacion`):
+Ve al directorio donde quieras crear tu nuevo proyecto y ejecuta el siguiente comando, reemplazando `Donnum.GatewayName` por el nombre real (ej. `Donnum.Autenticacion`):
 ```bash
-dotnet new donnum-ms -n Donnum.MicroserviceName
+dotnet new donnum-ms -n Donnum.GatewayName
 ```

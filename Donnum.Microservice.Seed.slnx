@@ -1,8 +1,0 @@
-<Solution>
-  <Folder Name="/src/">
-    <Project Path="src/Donnum.Microservice.Application/Donnum.Microservice.Application.csproj" />
-    <Project Path="src/Donnum.Microservice.Domain/Donnum.Microservice.Domain.csproj" />
-    <Project Path="src/Donnum.Microservice.Infrastructure/Donnum.Microservice.Infrastructure.csproj" />
-    <Project Path="src/Donnum.Microservice.Presentation.API/Donnum.Microservice.Presentation.API.csproj" />
-  </Folder>
-</Solution>
