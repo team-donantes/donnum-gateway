@@ -8,4 +8,9 @@ public interface IDonorServiceClient
     Task<DonorDto> CreateDonorAsync(CreateDonorDto request, CancellationToken cancellationToken = default);
     Task<DonorDto> UpdateDonorAsync(Guid id, UpdateDonorDto request, CancellationToken cancellationToken = default);
     Task<bool> DeleteDonorAsync(Guid id, CancellationToken cancellationToken = default);
+
+    Task<DonorDonationHistoryDto> GetDonationHistoryAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<DonorBadgeDto>> GetDonorBadgesAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<DonorReliabilityDto> GetDonorReliabilityAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<bool> RegisterAttendanceAsync(Guid id, RegisterAttendanceRequest request, CancellationToken cancellationToken = default);
 }

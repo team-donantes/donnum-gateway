@@ -2,6 +2,11 @@ using Donnum.Gateway.Application.Features.Donors.Commands.CreateDonor;
 using Donnum.Gateway.Application.Features.Donors.Commands.DeleteDonor;
 using Donnum.Gateway.Application.Features.Donors.Commands.UpdateDonor;
 using Donnum.Gateway.Application.Features.Donors.Queries.GetDonor;
+using Donnum.Gateway.Application.Features.Donors.Queries.GetDonationHistory;
+using Donnum.Gateway.Application.Features.Donors.Queries.GetDonorBadges;
+using Donnum.Gateway.Application.Features.Donors.Queries.GetDonorReliability;
+using Donnum.Gateway.Application.Features.Donors.Commands.RegisterAttendance;
+using Donnum.Gateway.Application.Models.Donor;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,5 +62,43 @@ public class DonorsController : ControllerBase
         }
         
         return NotFound();
+    }
+
+    [HttpGet("{id}/donations")]
+    public async Task<IActionResult> GetDonationHistory(Guid id)
+    {
+        var query = new GetDonationHistoryQuery(id);
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
+
+    [HttpGet("{id}/badges")]
+    public async Task<IActionResult> GetDonorBadges(Guid id)
+    {
+        var query = new GetDonorBadgesQuery(id);
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
+
+    [HttpGet("{id}/reliability")]
+    public async Task<IActionResult> GetDonorReliability(Guid id)
+    {
+        var query = new GetDonorReliabilityQuery(id);
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
+
+    [HttpPost("{id}/attendance")]
+    public async Task<IActionResult> RegisterAttendance(Guid id, [FromBody] RegisterAttendanceRequest payload)
+    {
+        var command = new RegisterAttendanceCommand(id, payload);
+        var result = await _mediator.Send(command);
+        
+        if (result)
+        {
+            return NoContent();
+        }
+        
+        return BadRequest();
     }
 }

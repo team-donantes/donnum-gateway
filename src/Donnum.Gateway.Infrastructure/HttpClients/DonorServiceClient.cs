@@ -42,4 +42,34 @@ public class DonorServiceClient : IDonorServiceClient
         return await response.Content.ReadFromJsonAsync<DonorDto>(cancellationToken: cancellationToken)
                ?? throw new InvalidOperationException("Failed to deserialize donor response.");
     }
+
+    public async Task<DonorDonationHistoryDto> GetDonationHistoryAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        var response = await _httpClient.GetAsync($"/api/donors/{id}/donations", cancellationToken);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<DonorDonationHistoryDto>(cancellationToken: cancellationToken)
+               ?? throw new InvalidOperationException("Failed to deserialize donation history response.");
+    }
+
+    public async Task<IReadOnlyList<DonorBadgeDto>> GetDonorBadgesAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        var response = await _httpClient.GetAsync($"/api/donors/{id}/badges", cancellationToken);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<List<DonorBadgeDto>>(cancellationToken: cancellationToken)
+               ?? throw new InvalidOperationException("Failed to deserialize badges response.");
+    }
+
+    public async Task<DonorReliabilityDto> GetDonorReliabilityAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        var response = await _httpClient.GetAsync($"/api/donors/{id}/reliability", cancellationToken);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<DonorReliabilityDto>(cancellationToken: cancellationToken)
+               ?? throw new InvalidOperationException("Failed to deserialize reliability response.");
+    }
+
+    public async Task<bool> RegisterAttendanceAsync(Guid id, RegisterAttendanceRequest request, CancellationToken cancellationToken = default)
+    {
+        var response = await _httpClient.PostAsJsonAsync($"/api/donors/{id}/attendance", request, cancellationToken);
+        return response.IsSuccessStatusCode;
+    }
 }
