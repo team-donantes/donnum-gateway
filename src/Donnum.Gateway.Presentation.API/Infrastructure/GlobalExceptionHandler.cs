@@ -38,6 +38,13 @@ public class GlobalExceptionHandler : IExceptionHandler
             problemDetails.Status = StatusCodes.Status422UnprocessableEntity;
             problemDetails.Detail = domainException.Message;
         }
+        else if (exception is MetricServiceUnavailableException metricException)
+        {
+            httpContext.Response.StatusCode = StatusCodes.Status503ServiceUnavailable;
+            problemDetails.Title = "Metric Service Unavailable";
+            problemDetails.Status = StatusCodes.Status503ServiceUnavailable;
+            problemDetails.Detail = metricException.Message;
+        }
         else
         {
             httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
