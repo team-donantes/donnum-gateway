@@ -1,6 +1,20 @@
 namespace Donnum.Gateway.Application.Models.Donor;
 
-public record DonorDto(Guid Id, string FirstName, string LastName, string Email);
+public record DonorDto(
+    Guid Id,
+    string FirstName,
+    string LastName,
+    string Email,
+    string? BloodGroup = null,
+    string? RhFactor = null,
+    string? Street = null,
+    string? City = null,
+    string? Province = null,
+    int? Points = null,
+    int? Reliability = null,
+    DateTime? CreatedAt = null,
+    DateTime? UpdatedAt = null
+);
 public record CreateDonorDto(string FirstName, string LastName, string Email);
 public record UpdateDonorDto(string FirstName, string LastName);
 
