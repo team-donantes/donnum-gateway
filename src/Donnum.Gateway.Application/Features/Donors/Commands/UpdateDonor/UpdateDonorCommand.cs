@@ -6,24 +6,25 @@ using Microsoft.Extensions.Logging;
 
 namespace Donnum.Gateway.Application.Features.Donors.Commands.UpdateDonor;
 
-public record UpdateDonorCommand(Guid Id, string FirstName, string LastName) : IRequest<DonorDto>;
+public record UpdateDonorCommand(Guid Id, string? Street, string City, string Province, string Email) : IRequest;
 
 public class UpdateDonorCommandValidator : AbstractValidator<UpdateDonorCommand>
 {
     public UpdateDonorCommandValidator()
     {
         RuleFor(x => x.Id).NotEmpty().WithMessage("Id is required.");
-        RuleFor(x => x.FirstName).NotEmpty().WithMessage("First name is required.");
-        RuleFor(x => x.LastName).NotEmpty().WithMessage("Last name is required.");
+        RuleFor(x => x.City).NotEmpty().WithMessage("City is required.");
+        RuleFor(x => x.Province).NotEmpty().WithMessage("Province is required.");
+        RuleFor(x => x.Email).NotEmpty().WithMessage("Email is required.");
     }
 }
 
-public class UpdateDonorCommandHandler(IDonorServiceClient donorServiceClient, ILogger<UpdateDonorCommandHandler> logger) : IRequestHandler<UpdateDonorCommand, DonorDto>
+public class UpdateDonorCommandHandler(IDonorServiceClient donorServiceClient, ILogger<UpdateDonorCommandHandler> logger) : IRequestHandler<UpdateDonorCommand>
 {
-    public async Task<DonorDto> Handle(UpdateDonorCommand request, CancellationToken cancellationToken)
+    public async Task Handle(UpdateDonorCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Updating donor {Id}", request.Id);
-        var updateDto = new UpdateDonorDto(request.FirstName, request.LastName);
-        return await donorServiceClient.UpdateDonorAsync(request.Id, updateDto, cancellationToken);
+        var updateDto = new UpdateDonorDto(request.Street, request.City, request.Province, request.Email);
+        await donorServiceClient.UpdateDonorAsync(request.Id, updateDto, cancellationToken);
     }
 }

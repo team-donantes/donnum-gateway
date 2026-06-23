@@ -39,15 +39,11 @@ public class DonorsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateDonor(Guid id, [FromBody] UpdateDonorCommand command)
+    public async Task<IActionResult> UpdateDonor(Guid id, [FromBody] UpdateDonorDto dto)
     {
-        if (id != command.Id)
-        {
-            return BadRequest("Id in the route does not match the Id in the request body.");
-        }
-
-        var result = await _mediator.Send(command);
-        return Ok(result);
+        var command = new UpdateDonorCommand(id, dto.Street, dto.City, dto.Province, dto.Email);
+        await _mediator.Send(command);
+        return NoContent();
     }
 
     [HttpDelete("{id}")]
