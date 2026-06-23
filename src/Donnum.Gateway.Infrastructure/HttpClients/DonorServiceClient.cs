@@ -76,4 +76,12 @@ public class DonorServiceClient : IDonorServiceClient
         var response = await _httpClient.PostAsJsonAsync($"/api/donors/{id}/attendance", request, cancellationToken);
         return response.IsSuccessStatusCode;
     }
+
+    public async Task<IReadOnlyList<DonorDto>> GetDonorsByRequestAsync(Guid requestId, CancellationToken cancellationToken = default)
+    {
+        var response = await _httpClient.GetAsync($"/api/donors/by-request/{requestId}", cancellationToken);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<List<DonorDto>>(cancellationToken: cancellationToken)
+               ?? throw new InvalidOperationException("Failed to deserialize donors by request response.");
+    }
 }

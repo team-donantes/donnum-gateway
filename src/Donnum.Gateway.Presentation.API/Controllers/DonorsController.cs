@@ -6,6 +6,7 @@ using Donnum.Gateway.Application.Features.Donors.Queries.GetDonationHistory;
 using Donnum.Gateway.Application.Features.Donors.Queries.GetDonorBadges;
 using Donnum.Gateway.Application.Features.Donors.Queries.GetDonorReliability;
 using Donnum.Gateway.Application.Features.Donors.Commands.RegisterAttendance;
+using Donnum.Gateway.Application.Features.Donors.Queries.GetDonorsByRequest;
 using Donnum.Gateway.Application.Models.Donor;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -96,5 +97,13 @@ public class DonorsController : ControllerBase
         }
         
         return BadRequest();
+    }
+
+    [HttpGet("by-request/{requestId}")]
+    public async Task<IActionResult> GetDonorsByRequest(Guid requestId)
+    {
+        var query = new GetDonorsByRequestQuery(requestId);
+        var result = await _mediator.Send(query);
+        return Ok(result);
     }
 }
