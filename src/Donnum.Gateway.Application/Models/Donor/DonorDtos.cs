@@ -16,7 +16,7 @@ public record DonorDto(
     DateTime? UpdatedAt = null
 );
 public record CreateDonorDto(string FirstName, string LastName, string Email);
-public record UpdateDonorDto(string FirstName, string LastName);
+public record UpdateDonorDto(string? Street, string City, string Province, string Email);
 
 public enum BadgeType { None = 0, FirstDonation = 1, Milestone = 2 } // Mocked enum for the gateway DTO, could be matched to the exact donor service enum
 public record DonorBadgeDto(Guid Id, string Name, BadgeType BadgeType, int BadgePoints, DateTime AssignedAt);

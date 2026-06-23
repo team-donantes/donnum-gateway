@@ -35,12 +35,16 @@ public class DonorServiceClient : IDonorServiceClient
                ?? throw new InvalidOperationException("Failed to deserialize donor response.");
     }
 
-    public async Task<DonorDto> UpdateDonorAsync(Guid id, UpdateDonorDto request, CancellationToken cancellationToken = default)
+    public async Task UpdateDonorAsync(Guid id, UpdateDonorDto request, CancellationToken cancellationToken = default)
     {
-        var response = await _httpClient.PutAsJsonAsync($"/api/donors/{id}", request, cancellationToken);
+        var payload = new
+        {
+            Street = request.Street,
+            City = request.City,
+            Province = request.Province
+        };
+        var response = await _httpClient.PutAsJsonAsync($"/api/donors/{id}", payload, cancellationToken);
         response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<DonorDto>(cancellationToken: cancellationToken)
-               ?? throw new InvalidOperationException("Failed to deserialize donor response.");
     }
 
     public async Task<DonorDonationHistoryDto> GetDonationHistoryAsync(Guid id, CancellationToken cancellationToken = default)
