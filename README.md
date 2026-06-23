@@ -5,6 +5,15 @@ Este repositorio es la plantilla (scaffolding) oficial para la construcción de 
 
 El propósito de este template es garantizar que los 5 microservicios base (Autenticación, Donantes, Urgencias, Alertas y Estadísticas) compartan la misma estructura, buenas prácticas y estándares técnicos. Así aseguramos un ecosistema unificado, escalable y mantenible por nuestros 9 desarrolladores.
 
+## SQL Server en Docker
+
+La infraestructura compartida debe iniciarse primero desde `building-blocks` con
+`docker compose up -d --wait sqlserver rabbitmq` y luego
+`docker compose run --rm sqlserver-init`. Este servicio usa la base `DonnumGateway` y se conecta desde
+Docker a `sqlserver,1433`; `localhost,1433` se reserva para conexiones realizadas desde la
+maquina host. Solo el SQL Server compartido publica `1433:1433`; esta API no expone el
+puerto de base de datos.
+
 ---
 
 ## Arquitectura Base

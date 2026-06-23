@@ -10,19 +10,11 @@ services:
       - "8081:8081"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=DonnumMicroserviceDb;User Id=sa;Password=Your_password123;TrustServerCertificate=True;
-    depends_on:
-      - sqlserver
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=DonnumGateway;User Id=sa;Password=${SQLSERVER_SA_PASSWORD:-Your_password123};TrustServerCertificate=True;
+    networks:
+      - donnum-shared
 
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    ports:
-      - "1433:1433"
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Your_password123
-    volumes:
-      - sqldata:/var/opt/mssql
-
-volumes:
-  sqldata:
+networks:
+  donnum-shared:
+    external: true
+    name: donnum-shared
