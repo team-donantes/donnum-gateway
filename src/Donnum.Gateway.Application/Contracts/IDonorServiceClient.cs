@@ -13,4 +13,7 @@ public interface IDonorServiceClient
     Task<IReadOnlyList<DonorBadgeDto>> GetDonorBadgesAsync(Guid id, CancellationToken cancellationToken = default);
     Task<DonorReliabilityDto> GetDonorReliabilityAsync(Guid id, CancellationToken cancellationToken = default);
     Task<bool> RegisterAttendanceAsync(Guid id, RegisterAttendanceRequest request, CancellationToken cancellationToken = default);
+
+    Task<bool> CreateParticipationAsync(Guid donorId, CreateParticipationDto request, CancellationToken cancellationToken = default);
+    Task<bool> CancelParticipationAsync(Guid donorId, Guid requestId, CancellationToken cancellationToken = default);
 }
