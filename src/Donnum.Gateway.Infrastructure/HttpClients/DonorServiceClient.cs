@@ -72,4 +72,17 @@ public class DonorServiceClient : IDonorServiceClient
         var response = await _httpClient.PostAsJsonAsync($"/api/donors/{id}/attendance", request, cancellationToken);
         return response.IsSuccessStatusCode;
     }
+
+    public async Task<bool> CreateParticipationAsync(Guid donorId, CreateParticipationDto request, CancellationToken cancellationToken = default)
+    {
+        var response = await _httpClient.PostAsJsonAsync($"/api/donations/{donorId}/participation", request, cancellationToken);
+        return response.IsSuccessStatusCode;
+    }
+
+    public async Task<bool> CancelParticipationAsync(Guid donorId, Guid requestId, CancellationToken cancellationToken = default)
+    {
+        var content = new StringContent(string.Empty);
+        var response = await _httpClient.PatchAsync($"/api/donations/{donorId}/participation/{requestId}", content, cancellationToken);
+        return response.IsSuccessStatusCode;
+    }
 }
