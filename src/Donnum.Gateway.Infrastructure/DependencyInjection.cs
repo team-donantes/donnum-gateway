@@ -22,6 +22,11 @@ public static class DependencyInjection
             client.BaseAddress = new Uri(configuration["ServiceUrls:DonorService"] ?? "https://localhost:7001");
         });
 
+        services.AddHttpClient<Donnum.Gateway.Application.Contracts.IBloodRequestServiceClient, Donnum.Gateway.Infrastructure.HttpClients.BloodRequestServiceClient>(client =>
+        {
+            client.BaseAddress = new Uri(configuration["ServiceUrls:BloodRequestService"] ?? "https://localhost:8083");
+        });
+
         return services;
     }
 }
