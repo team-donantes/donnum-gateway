@@ -6,6 +6,7 @@ using Donnum.Gateway.Application.Features.Donors.Queries.GetDonationHistory;
 using Donnum.Gateway.Application.Features.Donors.Queries.GetDonorBadges;
 using Donnum.Gateway.Application.Features.Donors.Queries.GetDonorReliability;
 using Donnum.Gateway.Application.Features.Donors.Commands.RegisterAttendance;
+using Donnum.Gateway.Application.Features.Donors.Queries.GetDonorsByRequest;
 using Donnum.Gateway.Application.Models.Donor;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -39,15 +40,11 @@ public class DonorsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateDonor(Guid id, [FromBody] UpdateDonorCommand command)
+    public async Task<IActionResult> UpdateDonor(Guid id, [FromBody] UpdateDonorDto dto)
     {
-        if (id != command.Id)
-        {
-            return BadRequest("Id in the route does not match the Id in the request body.");
-        }
-
-        var result = await _mediator.Send(command);
-        return Ok(result);
+        var command = new UpdateDonorCommand(id, dto.Street, dto.City, dto.Province, dto.Email);
+        await _mediator.Send(command);
+        return NoContent();
     }
 
     [HttpDelete("{id}")]
@@ -100,5 +97,13 @@ public class DonorsController : ControllerBase
         }
         
         return BadRequest();
+    }
+
+    [HttpGet("by-request/{requestId}")]
+    public async Task<IActionResult> GetDonorsByRequest(Guid requestId)
+    {
+        var query = new GetDonorsByRequestQuery(requestId);
+        var result = await _mediator.Send(query);
+        return Ok(result);
     }
 }

@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Text;
 using Donnum.Gateway.Application.Contracts;
 using Donnum.Gateway.Application.Models.BloodRequest;
 
@@ -58,7 +59,8 @@ public class BloodRequestServiceClient : IBloodRequestServiceClient
 
     public async Task CloseBloodRequestAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var response = await _httpClient.PatchAsync($"/api/blood-requests/{id}/close", null, cancellationToken);
+        var emptyContent = new StringContent("{}", Encoding.UTF8, "application/json");
+        var response = await _httpClient.PatchAsync($"/api/blood-requests/{id}/close", emptyContent, cancellationToken);
         response.EnsureSuccessStatusCode();
     }
 

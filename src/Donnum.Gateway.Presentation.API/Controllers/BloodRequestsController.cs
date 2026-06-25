@@ -45,10 +45,15 @@ public class BloodRequestsController(IMediator mediator) : ControllerBase
 
     [HttpPost]
     public async Task<IActionResult> Create(
-        [FromHeader(Name = "X-Operator-Id")] Guid operatorId,
         [FromBody] CreateBloodRequestBody body,
         CancellationToken cancellationToken)
     {
+        var userIdString = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        if (!Guid.TryParse(userIdString, out var operatorId))
+        {
+            return Unauthorized("Identidad del operador no válida o token corrupto.");
+        }
+
         var result = await mediator.Send(new CreateBloodRequestCommand(operatorId, body.DestinationMedicalCenterId, body.Title, body.Description, body.Type, body.RadiusKm, body.StartsAt, body.EndsAt, body.BloodTypes, body.Locations), cancellationToken);
         return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
     }

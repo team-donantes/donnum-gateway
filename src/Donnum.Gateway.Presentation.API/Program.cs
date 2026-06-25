@@ -22,7 +22,7 @@ builder.Services.AddReverseProxy()
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
-// Add CORS
+// Add CORS services
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
