@@ -22,17 +22,7 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 
 // Transforms YARP: Puse esto porque inyecta un ID único para poder rastrear logs entre microservicios
 builder.Services.AddReverseProxy()
-    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"))
-    .AddTransforms(builderContext =>
-    {
-        builderContext.AddRequestTransform(transformContext =>
-        {
-            var correlationId = transformContext.HttpContext.Request.Headers["X-Correlation-ID"].FirstOrDefault() 
-                                ?? Guid.NewGuid().ToString();
-            transformContext.ProxyRequest.Headers.TryAddWithoutValidation("X-Correlation-ID", correlationId);
-            return ValueTask.CompletedTask;
-        });
-    });
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
 // Register Global Exception Handler
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
