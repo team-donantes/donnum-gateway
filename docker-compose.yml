@@ -13,8 +13,6 @@ services:
       - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=DonnumMicroserviceDb;User Id=sa;Password=Your_password123;TrustServerCertificate=True;
       - ServiceUrls__DonorService=http://host.docker.internal:8082
       - ReverseProxy__Clusters__donor-cluster__Destinations__destination1__Address=http://host.docker.internal:8082
-    depends_on:
-      - sqlserver
 
 networks:
   donnum-shared:
