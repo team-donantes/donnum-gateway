@@ -1,12 +1,139 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\germa\\OneDrive\\Desktop\\proyecto-software\\TP-final\\clean-net-template\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6A9C4062-A864-2333-E1DF-02ED24CA2ABB}|src\\Donnum.Gateway.Application\\Donnum.Gateway.Application.csproj|c:\\users\\agust\\documents\\juli-docs\\donnum-gateway\\src\\donnum.gateway.application\\donnum.gateway.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{6A9C4062-A864-2333-E1DF-02ED24CA2ABB}|src\\Donnum.Gateway.Application\\Donnum.Gateway.Application.csproj|solutionrelative:src\\donnum.gateway.application\\donnum.gateway.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{33D32E3B-DEB0-6C1C-826C-A096D3EC2F2B}|src\\Donnum.Gateway.Domain\\Donnum.Gateway.Domain.csproj|c:\\users\\agust\\documents\\juli-docs\\donnum-gateway\\src\\donnum.gateway.domain\\donnum.gateway.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{33D32E3B-DEB0-6C1C-826C-A096D3EC2F2B}|src\\Donnum.Gateway.Domain\\Donnum.Gateway.Domain.csproj|solutionrelative:src\\donnum.gateway.domain\\donnum.gateway.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B473492C-70C3-30C4-7154-B18F3022D636}|src\\Donnum.Gateway.Infrastructure\\Donnum.Gateway.Infrastructure.csproj|c:\\users\\agust\\documents\\juli-docs\\donnum-gateway\\src\\donnum.gateway.infrastructure\\donnum.gateway.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B473492C-70C3-30C4-7154-B18F3022D636}|src\\Donnum.Gateway.Infrastructure\\Donnum.Gateway.Infrastructure.csproj|solutionrelative:src\\donnum.gateway.infrastructure\\donnum.gateway.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B473492C-70C3-30C4-7154-B18F3022D636}|src\\Donnum.Gateway.Infrastructure\\Donnum.Gateway.Infrastructure.csproj|c:\\users\\agust\\documents\\juli-docs\\donnum-gateway\\src\\donnum.gateway.infrastructure\\httpclients\\donorserviceclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B473492C-70C3-30C4-7154-B18F3022D636}|src\\Donnum.Gateway.Infrastructure\\Donnum.Gateway.Infrastructure.csproj|solutionrelative:src\\donnum.gateway.infrastructure\\httpclients\\donorserviceclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E6A520A-B5FE-9938-1CCA-B7AF1EBA0C0D}|src\\Donnum.Gateway.Presentation.API\\Donnum.Gateway.Presentation.API.csproj|c:\\users\\agust\\documents\\juli-docs\\donnum-gateway\\src\\donnum.gateway.presentation.api\\donnum.gateway.presentation.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4E6A520A-B5FE-9938-1CCA-B7AF1EBA0C0D}|src\\Donnum.Gateway.Presentation.API\\Donnum.Gateway.Presentation.API.csproj|solutionrelative:src\\donnum.gateway.presentation.api\\donnum.gateway.presentation.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E6A520A-B5FE-9938-1CCA-B7AF1EBA0C0D}|src\\Donnum.Gateway.Presentation.API\\Donnum.Gateway.Presentation.API.csproj|c:\\users\\agust\\documents\\juli-docs\\donnum-gateway\\src\\donnum.gateway.presentation.api\\controllers\\pingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E6A520A-B5FE-9938-1CCA-B7AF1EBA0C0D}|src\\Donnum.Gateway.Presentation.API\\Donnum.Gateway.Presentation.API.csproj|solutionrelative:src\\donnum.gateway.presentation.api\\controllers\\pingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E6A520A-B5FE-9938-1CCA-B7AF1EBA0C0D}|src\\Donnum.Gateway.Presentation.API\\Donnum.Gateway.Presentation.API.csproj|c:\\users\\agust\\documents\\juli-docs\\donnum-gateway\\src\\donnum.gateway.presentation.api\\controllers\\donorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E6A520A-B5FE-9938-1CCA-B7AF1EBA0C0D}|src\\Donnum.Gateway.Presentation.API\\Donnum.Gateway.Presentation.API.csproj|solutionrelative:src\\donnum.gateway.presentation.api\\controllers\\donorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Donnum.Gateway.Application.csproj",
+              "DocumentMoniker": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\src\\Donnum.Gateway.Application\\Donnum.Gateway.Application.csproj",
+              "RelativeDocumentMoniker": "src\\Donnum.Gateway.Application\\Donnum.Gateway.Application.csproj",
+              "ToolTip": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\src\\Donnum.Gateway.Application\\Donnum.Gateway.Application.csproj",
+              "RelativeToolTip": "src\\Donnum.Gateway.Application\\Donnum.Gateway.Application.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-06-23T01:21:41.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Donnum.Gateway.Domain.csproj",
+              "DocumentMoniker": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\src\\Donnum.Gateway.Domain\\Donnum.Gateway.Domain.csproj",
+              "RelativeDocumentMoniker": "src\\Donnum.Gateway.Domain\\Donnum.Gateway.Domain.csproj",
+              "ToolTip": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\src\\Donnum.Gateway.Domain\\Donnum.Gateway.Domain.csproj",
+              "RelativeToolTip": "src\\Donnum.Gateway.Domain\\Donnum.Gateway.Domain.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-06-23T01:21:40.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Donnum.Gateway.Infrastructure.csproj",
+              "DocumentMoniker": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\src\\Donnum.Gateway.Infrastructure\\Donnum.Gateway.Infrastructure.csproj",
+              "RelativeDocumentMoniker": "src\\Donnum.Gateway.Infrastructure\\Donnum.Gateway.Infrastructure.csproj",
+              "ToolTip": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\src\\Donnum.Gateway.Infrastructure\\Donnum.Gateway.Infrastructure.csproj",
+              "RelativeToolTip": "src\\Donnum.Gateway.Infrastructure\\Donnum.Gateway.Infrastructure.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-06-23T01:21:33.135Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DonorServiceClient.cs",
+              "DocumentMoniker": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\src\\Donnum.Gateway.Infrastructure\\HttpClients\\DonorServiceClient.cs",
+              "RelativeDocumentMoniker": "src\\Donnum.Gateway.Infrastructure\\HttpClients\\DonorServiceClient.cs",
+              "ToolTip": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\src\\Donnum.Gateway.Infrastructure\\HttpClients\\DonorServiceClient.cs",
+              "RelativeToolTip": "src\\Donnum.Gateway.Infrastructure\\HttpClients\\DonorServiceClient.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T01:21:29.997Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Donnum.Gateway.Presentation.API.csproj",
+              "DocumentMoniker": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\src\\Donnum.Gateway.Presentation.API\\Donnum.Gateway.Presentation.API.csproj",
+              "RelativeDocumentMoniker": "src\\Donnum.Gateway.Presentation.API\\Donnum.Gateway.Presentation.API.csproj",
+              "ToolTip": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\src\\Donnum.Gateway.Presentation.API\\Donnum.Gateway.Presentation.API.csproj",
+              "RelativeToolTip": "src\\Donnum.Gateway.Presentation.API\\Donnum.Gateway.Presentation.API.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-06-23T01:21:23.348Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PingController.cs",
+              "DocumentMoniker": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\src\\Donnum.Gateway.Presentation.API\\Controllers\\PingController.cs",
+              "RelativeDocumentMoniker": "src\\Donnum.Gateway.Presentation.API\\Controllers\\PingController.cs",
+              "ToolTip": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\src\\Donnum.Gateway.Presentation.API\\Controllers\\PingController.cs",
+              "RelativeToolTip": "src\\Donnum.Gateway.Presentation.API\\Controllers\\PingController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T01:16:19.322Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DonorsController.cs",
+              "DocumentMoniker": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\src\\Donnum.Gateway.Presentation.API\\Controllers\\DonorsController.cs",
+              "RelativeDocumentMoniker": "src\\Donnum.Gateway.Presentation.API\\Controllers\\DonorsController.cs",
+              "ToolTip": "C:\\Users\\agust\\Documents\\juli-docs\\donnum-gateway\\src\\Donnum.Gateway.Presentation.API\\Controllers\\DonorsController.cs",
+              "RelativeToolTip": "src\\Donnum.Gateway.Presentation.API\\Controllers\\DonorsController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-23T01:16:15.832Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
