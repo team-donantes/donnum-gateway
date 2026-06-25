@@ -26,11 +26,11 @@ public class BloodRequestServiceClient : IBloodRequestServiceClient
                ?? throw new InvalidOperationException("Failed to deserialize blood requests response.");
     }
 
-    public async Task<IReadOnlyList<BloodRequestDto>> GetActiveUrgenciesAsync(CancellationToken cancellationToken = default)
+    public async Task<PagedBloodRequestResult> GetActiveUrgenciesAsync(int page, int pageSize, CancellationToken cancellationToken = default)
     {
-        var response = await _httpClient.GetAsync("/api/blood-requests/active-urgencies", cancellationToken);
+        var response = await _httpClient.GetAsync($"/api/blood-requests/active-urgencies?page={page}&pageSize={pageSize}", cancellationToken);
         response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<List<BloodRequestDto>>(cancellationToken: cancellationToken)
+        return await response.Content.ReadFromJsonAsync<PagedBloodRequestResult>(cancellationToken: cancellationToken)
                ?? throw new InvalidOperationException("Failed to deserialize active urgencies response.");
     }
 

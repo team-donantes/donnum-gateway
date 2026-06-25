@@ -5,13 +5,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Donnum.Gateway.Application.Features.BloodRequests.Queries.GetActiveUrgencies;
 
-public record GetActiveUrgenciesQuery : IRequest<IReadOnlyList<BloodRequestDto>>;
+public record GetActiveUrgenciesQuery(int Page = 1, int PageSize = 10) : IRequest<PagedBloodRequestResult>;
 
-public class GetActiveUrgenciesQueryHandler(IBloodRequestServiceClient bloodRequestServiceClient, ILogger<GetActiveUrgenciesQueryHandler> logger) : IRequestHandler<GetActiveUrgenciesQuery, IReadOnlyList<BloodRequestDto>>
+public class GetActiveUrgenciesQueryHandler(IBloodRequestServiceClient bloodRequestServiceClient, ILogger<GetActiveUrgenciesQueryHandler> logger) : IRequestHandler<GetActiveUrgenciesQuery, PagedBloodRequestResult>
 {
-    public async Task<IReadOnlyList<BloodRequestDto>> Handle(GetActiveUrgenciesQuery request, CancellationToken cancellationToken)
+    public async Task<PagedBloodRequestResult> Handle(GetActiveUrgenciesQuery request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Getting active urgencies");
-        return await bloodRequestServiceClient.GetActiveUrgenciesAsync(cancellationToken);
+        return await bloodRequestServiceClient.GetActiveUrgenciesAsync(request.Page, request.PageSize, cancellationToken);
     }
 }
