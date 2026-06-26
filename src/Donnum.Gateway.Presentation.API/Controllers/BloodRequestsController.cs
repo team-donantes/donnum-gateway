@@ -27,9 +27,12 @@ public class BloodRequestsController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet("active-urgencies")]
-    public async Task<IActionResult> GetActiveUrgencies(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetActiveUrgencies(
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10,
+        CancellationToken cancellationToken = default)
     {
-        var result = await mediator.Send(new GetActiveUrgenciesQuery(), cancellationToken);
+        var result = await mediator.Send(new GetActiveUrgenciesQuery(page, pageSize), cancellationToken);
         return Ok(result);
     }
 
