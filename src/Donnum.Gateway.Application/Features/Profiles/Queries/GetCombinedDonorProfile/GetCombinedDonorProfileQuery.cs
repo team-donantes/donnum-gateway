@@ -23,28 +23,26 @@ public class GetCombinedDonorProfileQueryHandler(
             return null;
         }
 
-        object? clinicalProfile = null;
-        try
+        var donorDataTask = donorServiceClient.GetDonorAsync(request.UserId, cancellationToken);
+        var badgesTask = donorServiceClient.GetDonorBadgesAsync(request.UserId, cancellationToken);
+
+        await Task.WhenAll(donorDataTask, badgesTask);
+
+        var donorData = await donorDataTask;
+        var badges = await badgesTask;
+
+        var donorDetails = new
         {
-            var donorData = await donorServiceClient.GetDonorAsync(request.UserId, cancellationToken);
-            if (donorData != null)
-            {
-                clinicalProfile = new
-                {
-                    donorData.BloodGroup,
-                    donorData.RhFactor,
-                    donorData.Street,
-                    donorData.City,
-                    donorData.Province,
-                    donorData.Points,
-                    donorData.Reliability
-                };
-            }
-        }
-        catch (Exception ex)
-        {
-            logger.LogInformation(ex, "Donor profile not found for {UserId}. Returning identity only.", request.UserId);
-        }
+            donorData.PhoneNumber,
+            donorData.BloodGroup,
+            donorData.RhFactor,
+            donorData.Street,
+            donorData.City,
+            donorData.Province,
+            donorData.Points,
+            donorData.Reliability,
+            Badges = badges
+        };
 
         return new CombinedDonorProfileDto(
             Id: request.UserId,
@@ -52,7 +50,7 @@ public class GetCombinedDonorProfileQueryHandler(
             FirstName: meData.FirstName,
             LastName: meData.LastName,
             Role: meData.Role,
-            ClinicalProfile: clinicalProfile
+            DonorData: donorDetails
         );
     }
 }

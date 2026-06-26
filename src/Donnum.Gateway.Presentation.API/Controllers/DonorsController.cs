@@ -51,7 +51,7 @@ public class DonorsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateDonor(Guid id, [FromBody] UpdateDonorDto dto)
     {
-        var command = new UpdateDonorCommand(id, dto.Street, dto.City, dto.Province, dto.Email);
+        var command = new UpdateDonorCommand(id, dto.Street, dto.City, dto.Province, dto.PhoneNumber);
         await _mediator.Send(command);
         return NoContent();
     }

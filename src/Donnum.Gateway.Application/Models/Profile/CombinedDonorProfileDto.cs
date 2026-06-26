@@ -8,5 +8,5 @@ public record CombinedDonorProfileDto(
     string FirstName,
     string LastName,
     string Role,
-    object? ClinicalProfile
+    object? DonorData
 );
