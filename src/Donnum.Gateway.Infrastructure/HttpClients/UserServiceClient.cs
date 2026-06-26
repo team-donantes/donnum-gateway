@@ -3,6 +3,8 @@ using System.Net.Http.Json;
 using Donnum.Gateway.Application.Auth;
 using Donnum.Gateway.Application.Contracts;
 using Donnum.Gateway.Application.Models.Profile;
+using Donnum.Gateway.Application.Models.User;
+using Donnum.Gateway.Domain.Exceptions;
 
 namespace Donnum.Gateway.Infrastructure.HttpClients;
 
@@ -25,5 +27,19 @@ public class UserServiceClient(HttpClient httpClient) : IAuthTokenService, IUser
         }
         
         return await response.Content.ReadFromJsonAsync<IdentityProfileDto>(cancellationToken: cancellationToken);
+    }
+
+    public async Task<CreateOperatorIdentityResponseDto> CreateOperatorIdentityAsync(CreateOperatorIdentityRequestDto request, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PostAsJsonAsync("/api/users/operators", request, cancellationToken);
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            var error = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new DomainException($"Failed to create operator in User Service: {error}");
+        }
+
+        var result = await response.Content.ReadFromJsonAsync<CreateOperatorIdentityResponseDto>(cancellationToken: cancellationToken);
+        return result ?? throw new DomainException("Failed to parse response from User Service");
     }
 }
