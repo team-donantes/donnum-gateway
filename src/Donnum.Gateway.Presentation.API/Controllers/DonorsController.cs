@@ -25,8 +25,17 @@ public class DonorsController : ControllerBase
     }
 
     [HttpPost]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public async Task<IActionResult> CreateDonor([FromBody] CreateDonorCommand command)
     {
+        var userIdStr = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value 
+                        ?? User.FindFirst("sub")?.Value;
+
+        if (Guid.TryParse(userIdStr, out var userId) && command.AuthUserId == Guid.Empty)
+        {
+            command = command with { AuthUserId = userId };
+        }
+
         var result = await _mediator.Send(command);
         return CreatedAtAction(nameof(GetDonor), new { id = result.Id }, result);
     }

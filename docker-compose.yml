@@ -9,11 +9,15 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=DonnumGateway;User Id=sa;Password=${SQLSERVER_SA_PASSWORD:-Your_password123};TrustServerCertificate=True;
-      - ServiceUrls__UserService=http://donnum-user-service:8081
-      - ServiceUrls__DonorService=http://donnum-donor-service:8080
+      - Jwt__Key=DockerSecretSuperSeguroParaLocal123!
+      - Jwt__Issuer=DonnumDocker
+      - Jwt__Audience=DonnumDocker
+      - ServiceUrls__UserService=http://user-api:8081
+      - ReverseProxy__Clusters__user-cluster__Destinations__destination1__Address=http://user-api:8081
+      - ServiceUrls__DonorService=http://host.docker.internal:8082
+      - ReverseProxy__Clusters__donor-cluster__Destinations__destination1__Address=http://host.docker.internal:8082
       - ServiceUrls__BloodRequestService=http://donnum-bloodrequest-service:8080
       - ServiceUrls__MetricService=http://donnum-metric-service:8085
-      - ReverseProxy__Clusters__donor-cluster__Destinations__destination1__Address=http://donnum-donor-service:8080
     networks:
       - donnum-shared
 
