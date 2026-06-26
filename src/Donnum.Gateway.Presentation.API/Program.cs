@@ -58,7 +58,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Add Authorization Policies
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("AdminOnly", policy => policy.RequireClaim("role", "Admin"));
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
 });
 
 // Límite de Peticiones: Puse esto porque lo exige el contrato para proteger de ataques DDoS y spam (máx 100 req/min)
