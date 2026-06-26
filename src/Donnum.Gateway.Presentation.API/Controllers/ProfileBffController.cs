@@ -15,19 +15,25 @@ public class ProfileBffController(IMediator mediator) : ControllerBase
     {
         var authHeader = Request.Headers.Authorization.ToString();
         if (string.IsNullOrWhiteSpace(authHeader))
+        {
             return Unauthorized();
+        }
 
-        var userIdStr = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value 
+        var userIdStr = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
                         ?? User.FindFirst("sub")?.Value;
 
         if (!Guid.TryParse(userIdStr, out var userId))
+        {
             return BadRequest("El token no contiene un identificador de usuario válido (sub).");
+        }
 
         var query = new GetCombinedDonorProfileQuery(userId, authHeader);
         var result = await mediator.Send(query, cancellationToken);
 
         if (result == null)
+        {
             return NotFound("Identidad no encontrada.");
+        }
 
         return Ok(result);
     }
