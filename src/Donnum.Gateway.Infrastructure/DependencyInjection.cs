@@ -17,6 +17,11 @@ public static class DependencyInjection
             client.BaseAddress = new Uri(configuration["ServiceUrls:UserService"] ?? "http://localhost:8081");
         });
 
+        services.AddHttpClient<Donnum.Gateway.Application.Contracts.IUserServiceClient, Donnum.Gateway.Infrastructure.HttpClients.UserServiceClient>(client =>
+        {
+            client.BaseAddress = new Uri(configuration["ServiceUrls:UserService"] ?? "http://localhost:8081");
+        });
+
         services.AddHttpClient<Donnum.Gateway.Application.Contracts.IDonorServiceClient, Donnum.Gateway.Infrastructure.HttpClients.DonorServiceClient>(client =>
         {
             client.BaseAddress = new Uri(configuration["ServiceUrls:DonorService"] ?? "http://localhost:8082");

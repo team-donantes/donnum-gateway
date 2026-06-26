@@ -1,24 +1,45 @@
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using Donnum.Gateway.Application.Auth;
+using Donnum.Gateway.Application.Contracts;
+using Donnum.Gateway.Application.Models.Profile;
+using Donnum.Gateway.Application.Models.User;
+using Donnum.Gateway.Domain.Exceptions;
 
 namespace Donnum.Gateway.Infrastructure.HttpClients;
 
-public class UserServiceClient : IAuthTokenService
+public class UserServiceClient(HttpClient httpClient) : IAuthTokenService, IUserServiceClient
 {
-    private readonly HttpClient _httpClient;
-
-    public UserServiceClient(HttpClient httpClient)
-    {
-        _httpClient = httpClient;
-    }
-
     public async Task<bool> ValidateTokenAsync(string token, CancellationToken cancellationToken = default)
     {
-        // TODO: Implement actual call to User Service to validate the token
-        // Example:
-        // _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        // var response = await _httpClient.GetAsync("/api/auth/validate", cancellationToken);
-        // return response.IsSuccessStatusCode;
-
         return await Task.FromResult(true); // Placeholder
+    }
+
+    public async Task<IdentityProfileDto?> GetMeAsync(string token, CancellationToken cancellationToken = default)
+    {
+        using var requestMessage = new HttpRequestMessage(HttpMethod.Get, "/api/me");
+        requestMessage.Headers.Authorization = AuthenticationHeaderValue.Parse(token);
+        
+        var response = await httpClient.SendAsync(requestMessage, cancellationToken);
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
+        
+        return await response.Content.ReadFromJsonAsync<IdentityProfileDto>(cancellationToken: cancellationToken);
+    }
+
+    public async Task<CreateOperatorIdentityResponseDto> CreateOperatorIdentityAsync(CreateOperatorIdentityRequestDto request, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PostAsJsonAsync("/api/users/operators", request, cancellationToken);
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            var error = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new DomainException($"Failed to create operator in User Service: {error}");
+        }
+
+        var result = await response.Content.ReadFromJsonAsync<CreateOperatorIdentityResponseDto>(cancellationToken: cancellationToken);
+        return result ?? throw new DomainException("Failed to parse response from User Service");
     }
 }
