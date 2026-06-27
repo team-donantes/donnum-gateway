@@ -45,6 +45,20 @@ public class GlobalExceptionHandler : IExceptionHandler
             problemDetails.Status = StatusCodes.Status503ServiceUnavailable;
             problemDetails.Detail = metricException.Message;
         }
+        else if (exception is NotFoundException notFoundException)
+        {
+            httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+            problemDetails.Title = "Resource Not Found";
+            problemDetails.Status = StatusCodes.Status404NotFound;
+            problemDetails.Detail = notFoundException.Message;
+        }
+        else if (exception is HttpRequestException httpRequestException && httpRequestException.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+            problemDetails.Title = "Resource Not Found";
+            problemDetails.Status = StatusCodes.Status404NotFound;
+            problemDetails.Detail = "El recurso solicitado no fue encontrado en el servicio de origen.";
+        }
         else
         {
             httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
