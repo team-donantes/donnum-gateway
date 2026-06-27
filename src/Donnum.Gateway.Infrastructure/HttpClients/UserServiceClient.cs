@@ -4,6 +4,7 @@ using Donnum.Gateway.Application.Auth;
 using Donnum.Gateway.Application.Contracts;
 using Donnum.Gateway.Application.Models.Profile;
 using Donnum.Gateway.Application.Models.User;
+using Donnum.Gateway.Application.Models.Auth;
 using Donnum.Gateway.Domain.Exceptions;
 
 namespace Donnum.Gateway.Infrastructure.HttpClients;
@@ -40,6 +41,20 @@ public class UserServiceClient(HttpClient httpClient) : IAuthTokenService, IUser
         }
 
         var result = await response.Content.ReadFromJsonAsync<CreateOperatorIdentityResponseDto>(cancellationToken: cancellationToken);
+        return result ?? throw new DomainException("Failed to parse response from User Service");
+    }
+
+    public async Task<UserServiceLoginResponseDto> LoginAsync(LoginRequestDto request, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PostAsJsonAsync("/api/auth/login", request, cancellationToken);
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            var error = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new DomainException($"Failed to login: {error}");
+        }
+
+        var result = await response.Content.ReadFromJsonAsync<UserServiceLoginResponseDto>(cancellationToken: cancellationToken);
         return result ?? throw new DomainException("Failed to parse response from User Service");
     }
 }
