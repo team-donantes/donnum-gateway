@@ -16,7 +16,9 @@ public class AdminController(IMediator mediator) : ControllerBase
         [FromBody] CreateOperatorRequestDto request,
         CancellationToken cancellationToken)
     {
+        var token = Request.Headers.Authorization.ToString();
         var command = new CreateOperatorCommand(
+            token,
             request.FirstName,
             request.LastName,
             request.Password,
@@ -24,7 +26,7 @@ public class AdminController(IMediator mediator) : ControllerBase
             request.PersonalEmail
         );
         
-        var operatorId = await mediator.Send(command, cancellationToken);
-        return Ok(new { OperatorId = operatorId });
+        var result = await mediator.Send(command, cancellationToken);
+        return Ok(new { OperatorId = result.OperatorId, CorporateEmail = result.CorporateEmail });
     }
 }

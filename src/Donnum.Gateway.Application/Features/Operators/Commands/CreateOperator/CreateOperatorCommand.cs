@@ -7,13 +7,16 @@ using Microsoft.Extensions.Logging;
 
 namespace Donnum.Gateway.Application.Features.Operators.Commands.CreateOperator;
 
+public record CreateOperatorCommandResult(Guid OperatorId, string CorporateEmail);
+
 public record CreateOperatorCommand(
+    string Token,
     string FirstName,
     string LastName,
     string Password,
     Guid HospitalId,
     string PersonalEmail
-) : IRequest<Guid>;
+) : IRequest<CreateOperatorCommandResult>;
 
 public class CreateOperatorCommandValidator : AbstractValidator<CreateOperatorCommand>
 {
@@ -30,9 +33,9 @@ public class CreateOperatorCommandValidator : AbstractValidator<CreateOperatorCo
 public class CreateOperatorCommandHandler(
     IUserServiceClient userServiceClient,
     IBloodRequestServiceClient bloodRequestServiceClient,
-    ILogger<CreateOperatorCommandHandler> logger) : IRequestHandler<CreateOperatorCommand, Guid>
+    ILogger<CreateOperatorCommandHandler> logger) : IRequestHandler<CreateOperatorCommand, CreateOperatorCommandResult>
 {
-    public async Task<Guid> Handle(CreateOperatorCommand request, CancellationToken cancellationToken)
+    public async Task<CreateOperatorCommandResult> Handle(CreateOperatorCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Creating operator identity for {Email}", request.PersonalEmail);
 
@@ -43,8 +46,9 @@ public class CreateOperatorCommandHandler(
             request.Password
         );
 
-        var identityResponse = await userServiceClient.CreateOperatorIdentityAsync(identityRequest, cancellationToken);
+        var identityResponse = await userServiceClient.CreateOperatorIdentityAsync(request.Token, identityRequest, cancellationToken);
         var operatorId = identityResponse.CredentialId;
+        var corporateEmail = identityResponse.CorporateEmail;
 
         logger.LogInformation("Operator identity created with ID {OperatorId}. Assigning to Hospital {HospitalId}", operatorId, request.HospitalId);
 
@@ -58,6 +62,6 @@ public class CreateOperatorCommandHandler(
             throw new DomainException($"Operator identity created but failed to assign to medical center: {ex.Message}");
         }
 
-        return operatorId;
+        return new CreateOperatorCommandResult(operatorId, corporateEmail);
     }
 }
