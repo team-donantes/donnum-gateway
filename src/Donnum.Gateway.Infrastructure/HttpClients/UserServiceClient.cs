@@ -50,6 +50,10 @@ public class UserServiceClient(HttpClient httpClient) : IAuthTokenService, IUser
         
         if (!response.IsSuccessStatusCode)
         {
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                throw new DomainException("Email o contraseña incorrectos.");
+            }
             var error = await response.Content.ReadAsStringAsync(cancellationToken);
             throw new DomainException($"Failed to login: {error}");
         }
