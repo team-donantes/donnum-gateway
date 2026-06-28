@@ -30,9 +30,16 @@ public class UserServiceClient(HttpClient httpClient) : IAuthTokenService, IUser
         return await response.Content.ReadFromJsonAsync<IdentityProfileDto>(cancellationToken: cancellationToken);
     }
 
-    public async Task<CreateOperatorIdentityResponseDto> CreateOperatorIdentityAsync(CreateOperatorIdentityRequestDto request, CancellationToken cancellationToken = default)
+    public async Task<CreateOperatorIdentityResponseDto> CreateOperatorIdentityAsync(string token, CreateOperatorIdentityRequestDto request, CancellationToken cancellationToken = default)
     {
-        var response = await httpClient.PostAsJsonAsync("/api/users/operators", request, cancellationToken);
+        using var requestMessage = new HttpRequestMessage(HttpMethod.Post, "/api/users/operators");
+        if (!string.IsNullOrEmpty(token))
+        {
+            requestMessage.Headers.Authorization = AuthenticationHeaderValue.Parse(token);
+        }
+        requestMessage.Content = JsonContent.Create(request);
+        
+        var response = await httpClient.SendAsync(requestMessage, cancellationToken);
         
         if (!response.IsSuccessStatusCode)
         {
