@@ -85,8 +85,7 @@ public class DonorServiceClient : IDonorServiceClient
 
     public async Task<bool> CancelParticipationAsync(Guid donorId, Guid requestId, CancellationToken cancellationToken = default)
     {
-        var content = new StringContent(string.Empty);
-        var response = await _httpClient.PatchAsync($"/api/donations/{donorId}/participation/{requestId}", content, cancellationToken);
+        var response = await _httpClient.PatchAsync($"/api/donations/{donorId}/participation/{requestId}", null, cancellationToken);
         return response.IsSuccessStatusCode;
     }
     public async Task<IReadOnlyList<DonorDto>> GetDonorsByRequestAsync(Guid requestId, CancellationToken cancellationToken = default)
