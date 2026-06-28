@@ -23,7 +23,9 @@ public class CreateDonorCommandValidator : AbstractValidator<CreateDonorCommand>
 {
     public CreateDonorCommandValidator()
     {
-        RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("Phone number is required.");
+        RuleFor(x => x.PhoneNumber)
+            .NotEmpty().WithMessage("Phone number is required.")
+            .Matches(@"^\+[1-9]\d{7,14}$").WithMessage("El teléfono debe usar formato E.164.");
         RuleFor(x => x.BloodGroup).NotEmpty().WithMessage("Blood group is required.");
         RuleFor(x => x.RhFactor).NotEmpty().WithMessage("Rh factor is required.");
         RuleFor(x => x.City).NotEmpty().WithMessage("City is required.");
