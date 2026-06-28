@@ -9,9 +9,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=DonnumGateway;User Id=sa;Password=${SQLSERVER_SA_PASSWORD:-Your_password123};TrustServerCertificate=True;
-      - Jwt__Key=DockerSecretSuperSeguroParaLocal123!
-      - Jwt__Issuer=DonnumDocker
-      - Jwt__Audience=DonnumDocker
+      - Jwt__Key=${JWT_SECRET:-this_is_a_dummy_secret_for_development_purposes_only}
+      - Jwt__Issuer=${JWT_ISSUER:-donnum-user-service}
+      - Jwt__Audience=${JWT_AUDIENCE:-donnum-services}
       - ServiceUrls__UserService=http://donnum-user-service:8081
       - ReverseProxy__Clusters__user-cluster__Destinations__destination1__Address=http://donnum-user-service:8081
       - ServiceUrls__DonorService=http://donnum-donor-service:8080
