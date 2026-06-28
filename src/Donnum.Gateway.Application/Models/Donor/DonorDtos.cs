@@ -32,5 +32,6 @@ public record DonorBadgeDto(Guid Id, string Name, BadgeType BadgeType, int Badge
 public record DonorReliabilityDto(Guid DonorId, int Score, DateTime LastCalculatedAt);
 
 public record DonationHistoryItemDto(Guid Id, Guid DonationRequestId, Guid MedicalCenterId, DateTime DonationDate, DateTime CreatedAt);
-public record DonorDonationHistoryDto(Guid DonorId, List<DonationHistoryItemDto> Donations);
+public record ParticipationDto(Guid Id, Guid DonationRequestId, int Status, DateTime RegisteredAt);
+public record DonorDonationHistoryDto(Guid DonorId, List<DonationHistoryItemDto> Donations, List<ParticipationDto> Participations);
 public record RegisterAttendanceRequest(Guid DonationRequestId, Guid MedicalCenterId, DateTime DonationDate, bool Attended);
