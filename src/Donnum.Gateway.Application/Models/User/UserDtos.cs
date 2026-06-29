@@ -19,3 +19,9 @@ public record CreateOperatorIdentityResponseDto(
     Guid CredentialId,
     string CorporateEmail
 );
+
+public record UserBatchDataDto(
+    Guid Id,
+    string FirstName,
+    string LastName
+);

@@ -2,6 +2,8 @@ namespace Donnum.Gateway.Application.Models.Donor;
 
 public record DonorDto(
     Guid Id,
+    string? FirstName = null,
+    string? LastName = null,
     string? PhoneNumber = null,
     string? BloodGroup = null,
     string? RhFactor = null,
