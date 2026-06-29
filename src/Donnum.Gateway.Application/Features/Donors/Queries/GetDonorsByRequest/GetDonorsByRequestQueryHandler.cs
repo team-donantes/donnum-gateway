@@ -26,13 +26,13 @@ public sealed class GetDonorsByRequestQueryHandler : IRequestHandler<GetDonorsBy
             return donors ?? Array.Empty<DonorDto>();
         }
 
-        var donorIds = donors.Select(d => d.Id).ToList();
-        var usersData = await _userServiceClient.GetUsersDataBatchAsync(donorIds, cancellationToken);
+        var userIds = donors.Where(d => d.AuthUserId.HasValue).Select(d => d.AuthUserId!.Value).ToList();
+        var usersData = await _userServiceClient.GetUsersDataBatchAsync(userIds, cancellationToken);
         var usersDict = usersData.ToDictionary(u => u.Id);
 
         var enrichedDonors = donors.Select(d => 
         {
-            if (usersDict.TryGetValue(d.Id, out var userData))
+            if (d.AuthUserId.HasValue && usersDict.TryGetValue(d.AuthUserId.Value, out var userData))
             {
                 return d with { FirstName = userData.FirstName, LastName = userData.LastName };
             }
