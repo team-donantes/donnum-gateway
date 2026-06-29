@@ -15,7 +15,7 @@ public class RegisterAttendanceCommandValidator : AbstractValidator<RegisterAtte
         RuleFor(x => x.DonorId).NotEmpty().WithMessage("Donor Id is required.");
         RuleFor(x => x.Payload).NotNull().WithMessage("Payload is required.");
         RuleFor(x => x.Payload.DonationRequestId).NotEmpty().WithMessage("Donation Request Id is required.");
-        RuleFor(x => x.Payload.MedicalCenterId).NotEmpty().WithMessage("Medical Center Id is required.");
+        // MedicalCenterId is no longer strictly required by validation
     }
 }
 
