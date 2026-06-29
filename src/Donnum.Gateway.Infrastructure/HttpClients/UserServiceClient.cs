@@ -68,4 +68,17 @@ public class UserServiceClient(HttpClient httpClient) : IAuthTokenService, IUser
         var result = await response.Content.ReadFromJsonAsync<UserServiceLoginResponseDto>(cancellationToken: cancellationToken);
         return result ?? throw new DomainException("Failed to parse response from User Service");
     }
+
+    public async Task<IEnumerable<UserBatchDataDto>> GetUsersDataBatchAsync(IEnumerable<Guid> userIds, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PostAsJsonAsync("/api/users/batch", userIds, cancellationToken);
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            return Enumerable.Empty<UserBatchDataDto>();
+        }
+
+        var result = await response.Content.ReadFromJsonAsync<IEnumerable<UserBatchDataDto>>(cancellationToken: cancellationToken);
+        return result ?? Enumerable.Empty<UserBatchDataDto>();
+    }
 }
