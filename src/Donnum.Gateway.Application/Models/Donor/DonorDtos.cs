@@ -11,7 +11,8 @@ public record DonorDto(
     int? Points = null,
     int? Reliability = null,
     DateTime? CreatedAt = null,
-    DateTime? UpdatedAt = null
+    DateTime? UpdatedAt = null,
+    bool? Attended = null
 );
 public record CreateDonorDto(
     Guid AuthUserId,
