@@ -18,21 +18,23 @@ public class BloodRequestsController(IMediator mediator) : ControllerBase
         [FromQuery] string? status,
         [FromQuery] string? type,
         [FromQuery] Guid? destinationMedicalCenterId,
+        [FromQuery] string? donorBloodType,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 10,
         CancellationToken cancellationToken = default)
     {
-        var result = await mediator.Send(new ListBloodRequestsQuery(status, type, destinationMedicalCenterId, page, pageSize), cancellationToken);
+        var result = await mediator.Send(new ListBloodRequestsQuery(status, type, destinationMedicalCenterId, donorBloodType, page, pageSize), cancellationToken);
         return Ok(result);
     }
 
     [HttpGet("active-urgencies")]
     public async Task<IActionResult> GetActiveUrgencies(
+        [FromQuery] string? donorBloodType,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 10,
         CancellationToken cancellationToken = default)
     {
-        var result = await mediator.Send(new GetActiveUrgenciesQuery(page, pageSize), cancellationToken);
+        var result = await mediator.Send(new GetActiveUrgenciesQuery(page, pageSize, donorBloodType), cancellationToken);
         return Ok(result);
     }
 
