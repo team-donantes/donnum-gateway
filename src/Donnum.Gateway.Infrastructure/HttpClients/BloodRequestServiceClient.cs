@@ -14,12 +14,13 @@ public class BloodRequestServiceClient : IBloodRequestServiceClient
         _httpClient = httpClient;
     }
 
-    public async Task<PagedBloodRequestResult> GetBloodRequestsAsync(string? status, string? type, Guid? destinationMedicalCenterId, int page, int pageSize, CancellationToken cancellationToken = default)
+    public async Task<PagedBloodRequestResult> GetBloodRequestsAsync(string? status, string? type, Guid? destinationMedicalCenterId, string? donorBloodType, int page, int pageSize, CancellationToken cancellationToken = default)
     {
         var query = new List<string> { $"page={page}", $"pageSize={pageSize}" };
         if (!string.IsNullOrEmpty(status)) query.Add($"status={status}");
         if (!string.IsNullOrEmpty(type)) query.Add($"type={type}");
         if (destinationMedicalCenterId.HasValue) query.Add($"destinationMedicalCenterId={destinationMedicalCenterId}");
+        if (!string.IsNullOrEmpty(donorBloodType)) query.Add($"donorBloodType={Uri.EscapeDataString(donorBloodType)}");
 
         var response = await _httpClient.GetAsync($"/api/blood-requests?{string.Join("&", query)}", cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -27,9 +28,11 @@ public class BloodRequestServiceClient : IBloodRequestServiceClient
                ?? throw new InvalidOperationException("Failed to deserialize blood requests response.");
     }
 
-    public async Task<PagedBloodRequestResult> GetActiveUrgenciesAsync(int page, int pageSize, CancellationToken cancellationToken = default)
+    public async Task<PagedBloodRequestResult> GetActiveUrgenciesAsync(string? donorBloodType, int page, int pageSize, CancellationToken cancellationToken = default)
     {
-        var response = await _httpClient.GetAsync($"/api/blood-requests/active-urgencies?page={page}&pageSize={pageSize}", cancellationToken);
+        var query = new List<string> { $"page={page}", $"pageSize={pageSize}" };
+        if (!string.IsNullOrEmpty(donorBloodType)) query.Add($"donorBloodType={Uri.EscapeDataString(donorBloodType)}");
+        var response = await _httpClient.GetAsync($"/api/blood-requests/active-urgencies?{string.Join("&", query)}", cancellationToken);
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadFromJsonAsync<PagedBloodRequestResult>(cancellationToken: cancellationToken)
                ?? throw new InvalidOperationException("Failed to deserialize active urgencies response.");
