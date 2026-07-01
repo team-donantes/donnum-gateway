@@ -77,11 +77,33 @@ public class DonorServiceClient : IDonorServiceClient
         return response.IsSuccessStatusCode;
     }
 
+    public async Task<bool> CreateParticipationAsync(Guid donorId, CreateParticipationDto request, CancellationToken cancellationToken = default)
+    {
+        var response = await _httpClient.PostAsJsonAsync($"/api/donations/{donorId}/participation", request, cancellationToken);
+        return response.IsSuccessStatusCode;
+    }
+
+    public async Task<bool> CancelParticipationAsync(Guid donorId, Guid requestId, CancellationToken cancellationToken = default)
+    {
+        var response = await _httpClient.PatchAsync($"/api/donations/{donorId}/participation/{requestId}", null, cancellationToken);
+        return response.IsSuccessStatusCode;
+    }
     public async Task<IReadOnlyList<DonorDto>> GetDonorsByRequestAsync(Guid requestId, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.GetAsync($"/api/donors/by-request/{requestId}", cancellationToken);
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadFromJsonAsync<List<DonorDto>>(cancellationToken: cancellationToken)
                ?? throw new InvalidOperationException("Failed to deserialize donors by request response.");
+    }
+
+    public async Task<Guid?> GetDonorIdByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
+    {
+        var response = await _httpClient.GetAsync($"/api/users/{userId}/donor", cancellationToken);
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
+
+        return await response.Content.ReadFromJsonAsync<Guid?>(cancellationToken: cancellationToken);
     }
 }

@@ -17,6 +17,11 @@ public static class DependencyInjection
             client.BaseAddress = new Uri(configuration["ServiceUrls:UserService"] ?? "http://localhost:8081");
         });
 
+        services.AddHttpClient<Donnum.Gateway.Application.Contracts.IUserServiceClient, Donnum.Gateway.Infrastructure.HttpClients.UserServiceClient>(client =>
+        {
+            client.BaseAddress = new Uri(configuration["ServiceUrls:UserService"] ?? "http://localhost:8081");
+        });
+
         services.AddHttpClient<Donnum.Gateway.Application.Contracts.IDonorServiceClient, Donnum.Gateway.Infrastructure.HttpClients.DonorServiceClient>(client =>
         {
             client.BaseAddress = new Uri(configuration["ServiceUrls:DonorService"] ?? "http://localhost:8082");
@@ -25,6 +30,11 @@ public static class DependencyInjection
         services.AddHttpClient<Donnum.Gateway.Application.Contracts.IMetricServiceClient, Donnum.Gateway.Infrastructure.HttpClients.MetricServiceClient>(client =>
         {
             client.BaseAddress = new Uri(configuration["ServiceUrls:MetricService"] ?? "http://localhost:8085");
+        });
+
+        services.AddHttpClient<Donnum.Gateway.Application.Contracts.IBloodRequestServiceClient, Donnum.Gateway.Infrastructure.HttpClients.BloodRequestServiceClient>(client =>
+        {
+            client.BaseAddress = new Uri(configuration["ServiceUrls:BloodRequestService"] ?? "https://localhost:8083");
         });
 
         return services;

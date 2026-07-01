@@ -1,30 +1,28 @@
-version: '3.8'
-
 services:
   donnum-api:
+    container_name: donnum-gateway
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-      - "8081:8081"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=DonnumMicroserviceDb;User Id=sa;Password=Your_password123;TrustServerCertificate=True;
-      - ServiceUrls__DonorService=http://host.docker.internal:8082
-      - ReverseProxy__Clusters__donor-cluster__Destinations__destination1__Address=http://host.docker.internal:8082
-    depends_on:
-      - sqlserver
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=DonnumGateway;User Id=sa;Password=${SQLSERVER_SA_PASSWORD:-Your_password123};TrustServerCertificate=True;
+      - Jwt__Key=${JWT_SECRET:-this_is_a_dummy_secret_for_development_purposes_only}
+      - Jwt__Issuer=${JWT_ISSUER:-donnum-user-service}
+      - Jwt__Audience=${JWT_AUDIENCE:-donnum-services}
+      - ServiceUrls__UserService=http://donnum-user-service:8081
+      - ReverseProxy__Clusters__user-cluster__Destinations__destination1__Address=http://donnum-user-service:8081
+      - ServiceUrls__DonorService=http://donnum-donor-service:8080
+      - ReverseProxy__Clusters__donor-cluster__Destinations__destination1__Address=http://donnum-donor-service:8080
+      - ServiceUrls__BloodRequestService=http://donnum-bloodrequest-service:8080
+      - ReverseProxy__Clusters__blood-cluster__Destinations__destination1__Address=http://donnum-bloodrequest-service:8080
+      - ServiceUrls__MetricService=http://donnum-metric-service:8085
+    networks:
+      - donnum-shared
 
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    ports:
-      - "1433:1433"
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Your_password123
-    volumes:
-      - sqldata:/var/opt/mssql
-
-volumes:
-  sqldata:
+networks:
+  donnum-shared:
+    external: true
+    name: donnum-shared

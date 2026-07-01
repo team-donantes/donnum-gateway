@@ -41,6 +41,11 @@ public class MetricServiceClient : IMetricServiceClient
             
             if (!response.IsSuccessStatusCode)
             {
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    throw new NotFoundException("No se encontraron datos para la consulta solicitada.");
+                }
+
                 _logger.LogWarning("Downstream metric-service dashboard endpoint returned status {StatusCode}", response.StatusCode);
                 throw new MetricServiceUnavailableException("El servicio de métricas no respondió correctamente.");
             }
@@ -74,6 +79,11 @@ public class MetricServiceClient : IMetricServiceClient
             
             if (!response.IsSuccessStatusCode)
             {
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    throw new NotFoundException("No se encontraron datos de campañas para la consulta solicitada.");
+                }
+
                 _logger.LogWarning("Downstream metric-service campaigns endpoint returned status {StatusCode}", response.StatusCode);
                 throw new MetricServiceUnavailableException("El servicio de métricas no respondió correctamente.");
             }
@@ -105,6 +115,11 @@ public class MetricServiceClient : IMetricServiceClient
             
             if (!response.IsSuccessStatusCode)
             {
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    throw new NotFoundException("No se encontraron datos de emergencias para la consulta solicitada.");
+                }
+
                 _logger.LogWarning("Downstream metric-service emergencies endpoint returned status {StatusCode}", response.StatusCode);
                 throw new MetricServiceUnavailableException("El servicio de métricas no respondió correctamente.");
             }
@@ -138,6 +153,11 @@ public class MetricServiceClient : IMetricServiceClient
             
             if (!response.IsSuccessStatusCode)
             {
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    throw new NotFoundException("No se encontraron datos de donaciones para la consulta solicitada.");
+                }
+
                 _logger.LogWarning("Downstream metric-service donations endpoint returned status {StatusCode}", response.StatusCode);
                 throw new MetricServiceUnavailableException("El servicio de métricas no respondió correctamente.");
             }
